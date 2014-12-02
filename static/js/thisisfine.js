@@ -16,9 +16,16 @@
     });
 
     $('form').submit(function() {
-        socket.emit('post', $('#content').val(), $('#content_select').val());
-        $('#content').val('');
-        return false;
+        var data = $('#content').val('');
+        var sel_data = $('#content_select').val('');
+        if(data) {
+            socket.emit('post', data, sel_data);
+            $('#content').val('');
+            return false;
+        }
+        else {
+            return false;
+        }
     });
 
     socket.on('post', function(content, content_type) {
