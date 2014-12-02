@@ -1,0 +1,14 @@
+#this_is_fine {
+    display: block;
+    margin: 1em auto;
+    border-radius: 5px;
+}
+
+#footer {
+    position: fixed;
+    bottom: 0;
+}
+
+#content_select {
+    border-radius: 2px;
+}

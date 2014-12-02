@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+    <!-- Bootstrap Mobile Response -->
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <!-- Site Styles -->
+    <link rel="stylesheet" type="text/css" href="/static/css/thisisfine.css">
+
+    <!-- Frontend JS -->
+    <script src="/static/js/thisisfine.js"></script>
+
+    <title>This is fine.</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10">
+                <img id="this_is_fine" src="/static/images/thisisfine.jpg" />
+            </div>
+        </div>
+    </div>
+</body>
+<footer>
+    <form role="form" action="/" method="post">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="url_post" class="form-group input-group">
+                    <span class="input-group-addon">
+                        <select id="content_select">
+                            <option>URL/Image</option>
+                            <option>Text</option>
+                        </select>
+                    </span>
+                  <input type="text" class="form-control" placeholder="http://image.url.jpg">
+                  <span class="input-group-btn"><button type="submit" class="btn btn-success">Submit</button></span>
+                </div>
+            </div>
+        </div>
+    </form>
+</footer>
+</html>
