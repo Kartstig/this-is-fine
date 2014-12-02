@@ -22,12 +22,12 @@ app.get('/', function(req, res) {
   res.sendFile(__dirname + '/templates/index.html');
 });
 
-io.on('connection', function(socket){
-  socket.emit('chat message', function () {
-    io.emit('chat message', 'A user has joined')
-  });
-  socket.on('chat message', function(msg){
-    io.emit('chat message', msg);
+io.on('connection', function(socket) {
+  console.log('New Connection');
+
+  socket.on('post', function(content, content_type) {
+    io.emit('post', content, content_type);
+    console.log('A new ' + content_type + ' was posted!');
   });
 });
 
