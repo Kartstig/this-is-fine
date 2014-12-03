@@ -5,6 +5,11 @@
         $('div.posts').prepend(content);
     });
 
+    // Username Modal
+    $('#user_modal').modal({
+        show: true
+    })
+
     // Handlers
     $('#content_select').on('change', updatePlaceholder);
 

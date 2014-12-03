@@ -1,5 +1,5 @@
 div.posts {
-    height: 100%;
+    max-height: 45em;
     width: 100%;
     margin-bottom: 5em;
     background-color: #EEEEEE;
@@ -27,14 +27,14 @@ img.image-post {
 }
 
 span.text-post {
-    font-size: 1.2em;
+    font-size: 1em;
     text-align: left;
 }
 
 a.url-post {
     font-size: 1.2em;
     font-weight: 900;
-    text-align: left;   
+    text-align: left;
 }
 
 .fixed {
