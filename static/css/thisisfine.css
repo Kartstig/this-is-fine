@@ -17,13 +17,13 @@
 img.image-post {
     display: block;
     margin: 1em auto;
+    max-height: 15em;
     max-width: 85%;
     border-radius: 5px;
 }
 
 span.text-post {
     font-size: 1.2em;
-    font-weight: 700;
     text-align: left;
 }
 

@@ -1,7 +1,51 @@
 ($(document).ready(function() {
     var socket = io();
 
-    $('#content_select').on('change', function() {
+    socket.on('post', function(content) {
+        $('div.posts').append(content);
+    });
+
+    // Handlers
+    $('#content_select').on('change', updatePlaceholder);
+
+    $('form').submit(function() {
+        var sel_data = $('#content_select').val();
+        var data = getData(sel_data);
+        if(data) {
+            socket.emit('post', data);
+            $('#content').val('');
+            return false;
+        } 
+        else {
+            return false;
+        }
+    });
+
+    function getData(content_type) {
+        header = 'Anonymous: ';
+        payload = $('#content').val();
+        if(payload) {
+            switch(content_type) {
+                case "Text":
+                    user = getUser();
+                    return '<p class="post-data"><span class="text-post">' + user + ': ' + payload + '</span></p>';
+                    break;
+                case "URL":
+                    return '<p class="post-data"><a class="link-post" href="' + payload + '">' + payload + '</a></p>';
+                    break;
+                case "Image":
+                    return'<p class="post-data"><img class="image-post" src="' + payload + '"></img></p>';
+                default:
+                    return false;
+                    break;
+            }
+        }
+        else {
+            return false;
+        }
+    }
+
+    function updatePlaceholder() {
         switch($('#content_select').val()) {
             case "Text":
                 $('#content').prop('placeholder', 'This is fine.');
@@ -13,33 +57,15 @@
                 $('#content').prop('placeholder', 'http://thisisfine.com/static/images/thisisfine.jpg');
                 break;
         }
-    });
+    }
 
-    $('form').submit(function() {
-        var data = $('#content').val('');
-        var sel_data = $('#content_select').val('');
-        if(data) {
-            socket.emit('post', data, sel_data);
-            $('#content').val('');
-            return false;
+    function getUser() {
+        u = $('#user').val()
+        if(u) {
+            return u
         }
         else {
-            return false;
+            return 'Anonymous'
         }
-    });
-
-    socket.on('post', function(content, content_type) {
-        switch(content_type) {
-            case "Text":
-                $('div.posts').append('<p class="post-data"><span class="text-post">' + content + '</span></p>');
-                break;
-            case "URL":
-                $('div.posts').append('<p class="post-data"><a class="link-post" href="' + content + '">' + content + '</a></p>');
-                break;
-            case "Image":
-                $('div.posts').append('<p class="post-data"><img class="image-post" src="' + content + '"></img></p>');
-            default:
-                break;
-        }
-    });
+    }
 }));
