@@ -1,13 +1,17 @@
+div.posts {
+    height: 100%;
+    width: 100%;
+    margin-bottom: 5em;
+    background-color: #EEEEEE;
+    overflow: auto;
+    border-radius: 5px;
+}
+
 #this_is_fine {
     display: block;
     margin: 1em auto;
     border-radius: 5px;
     max-width: 100%;
-}
-
-#footer {
-    position: absolute;
-    bottom: 0;
 }
 
 #content_select {
@@ -31,4 +35,11 @@ a.url-post {
     font-size: 1.2em;
     font-weight: 900;
     text-align: left;   
+}
+
+.fixed {
+    position: fixed;
+    margin: 0 auto;
+    padding: 0;
+    bottom: 0;
 }

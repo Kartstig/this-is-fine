@@ -2,7 +2,7 @@
     var socket = io();
 
     socket.on('post', function(content) {
-        $('div.posts').append(content);
+        $('div.posts').prepend(content);
     });
 
     // Handlers
