@@ -25,9 +25,8 @@ app.get('/', function(req, res) {
 io.on('connection', function(socket) {
   console.log('New Connection');
 
-  socket.on('post', function(content, content_type) {
-    io.emit('post', content, content_type);
-    console.log('A new ' + content_type + ' was posted!');
+  socket.on('post', function(content) {
+    io.emit('post', content);
   });
 });
 
