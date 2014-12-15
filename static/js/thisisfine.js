@@ -1,21 +1,17 @@
 ($(document).ready(function() {
     var socket = io();
 
-    socket.on('post', function(content) {
-        $('div.posts').prepend(content);
-    });
-
     // Username Modal
     $('#user_modal').modal({
         show: true
-    })
+    });
 
-    // Handlers
-    $('#content_select').on('change', updatePlaceholder);
+    socket.on('post', function(content) {
+        $('div.posts').append(content);
+    });
 
     $('form').submit(function() {
-        var sel_data = $('#content_select').val();
-        var data = getData(sel_data);
+        var data = parseData();
         if(data) {
             socket.emit('post', data);
             $('#content').val('');
@@ -26,41 +22,28 @@
         }
     });
 
-    function getData(content_type) {
-        header = 'Anonymous: ';
-        payload = $('#content').val();
+    // Sanitize for HTML injection
+    var content_keepers = [/(<a*.*\/a>)/g, /(<img*.*>)/g];
+    var sanitizers = [/(<*.*>)/g];
+    function parseData() {
+        var payload = $('#content').val();
         if(payload) {
-            switch(content_type) {
-                case "Text":
-                    user = getUser();
-                    return '<p class="post-data"><span class="text-post">' + user + ': ' + payload + '</span></p>';
-                    break;
-                case "URL":
-                    return '<p class="post-data"><a class="link-post" href="' + payload + '">' + payload + '</a></p>';
-                    break;
-                case "Image":
-                    return'<p class="post-data"><img class="image-post" src="' + payload + '"></img></p>';
-                default:
-                    return false;
-                    break;
-            }
+            var user = getUser();
+            var goodies = [];
+            _.each(content_keepers, function(regex) {
+                if( payload.match(regex) ) {
+                    _.each(payload.match(regex), function(extract) {
+                        goodies.push(extract);
+                    });
+                }
+            });
+            _.each(sanitizers, function(regex) {
+                payload = payload.replace(regex, "");
+            });
+            return user + ': ' + payload + '<br>' + goodies.join("<br>");
         }
         else {
             return false;
-        }
-    }
-
-    function updatePlaceholder() {
-        switch($('#content_select').val()) {
-            case "Text":
-                $('#content').prop('placeholder', 'This is fine.');
-                break;
-            case "URL":
-                $('#content').prop('placeholder', 'http://thisisfine.com');
-                break;
-            case "Image":
-                $('#content').prop('placeholder', 'http://thisisfine.com/static/images/thisisfine.jpg');
-                break;
         }
     }
 
