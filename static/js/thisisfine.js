@@ -8,8 +8,18 @@
 
     socket.on('post', function(content) {
         $('div.posts').append(content);
+        scrollBottom();
     });
 
+    socket.on('user:join', function(content) {
+        $('#numUsers').html(content.numUsers);
+    });
+
+    socket.on('user:disconnect', function(content) {
+        $('#numUsers').html(content.numUsers);
+    });
+
+    // Handlers
     $('form').submit(function() {
         var data = parseData();
         if(data) {
@@ -21,6 +31,8 @@
             return false;
         }
     });
+
+    $('#join-btn').on('click', joinChat);
 
     // Sanitize for HTML injection
     var content_keepers = [/(<a*.*\/a>)/g, /(<img*.*>)/g];
@@ -40,7 +52,7 @@
             _.each(sanitizers, function(regex) {
                 payload = payload.replace(regex, "");
             });
-            return user + ': ' + payload + '<br>' + goodies.join("<br>");
+            return '<p><span class="text-post">' + user + ': ' + payload + '</span></p><br>' + goodies.join("<br>");
         }
         else {
             return false;
@@ -48,7 +60,7 @@
     }
 
     function getUser() {
-        u = $('#user').val()
+        var u = $('#user').val()
         if(u) {
             return u
         }
@@ -56,4 +68,14 @@
             return 'Anonymous'
         }
     }
+
+    function scrollBottom() {
+        var el = $('div.posts');
+        el.scrollTop(el.prop('scrollHeight'));
+    }
+
+    function joinChat() {
+        socket.emit('user:join', getUser());
+    }
+
 }));

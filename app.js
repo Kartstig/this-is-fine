@@ -22,8 +22,30 @@ app.get('/', function(req, res) {
   res.sendFile(__dirname + '/templates/index.html');
 });
 
+var usernames = {};
+var numUsers = 0;
+
 io.on('connection', function(socket) {
-  console.log('New Connection');
+
+  socket.on('user:join', function(username) {
+    socket.username = username;
+    usernames[username] = username;
+    ++numUsers;
+    io.emit('user:join', {
+      username: socket.username,
+      numUsers: numUsers
+    });
+    io.emit('post', '<p><span class="server-post">' + socket.username + ' has joined</span></p>');
+  });
+
+  socket.on('disconnect', function() {
+    --numUsers;
+    io.emit('user:disconnect', {
+      username: socket.username,
+      numUsers: numUsers
+    });
+    io.emit('post', '<p><span class="server-post">' + socket.username + ' has left</span></p>');
+  });
 
   socket.on('post', function(content) {
     io.emit('post', content);

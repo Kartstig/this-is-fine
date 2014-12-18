@@ -1,5 +1,5 @@
 div.posts {
-    max-height: 45em;
+    max-height: 40em;
     width: 100%;
     margin-bottom: 5em;
     background-color: #EEEEEE;
@@ -28,6 +28,12 @@ img.image-post {
 
 span.text-post {
     font-size: 1em;
+    text-align: left;
+}
+
+span.server-post {
+    font-size: 1em;
+    font-style: italic;
     text-align: left;
 }
 

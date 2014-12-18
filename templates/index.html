@@ -42,6 +42,7 @@
         </div>
 
         <!-- Posts -->
+        <span>Connected Users: <span id="numUsers"></span></span>
         <div class="posts">
         </div>
     </div>
@@ -53,7 +54,7 @@
         <div class="form-group input-group">
             <span class="input-group-addon">Enter a handle</span>
             <input id="user" type="text" class="form-control">
-            <span class="input-group-btn"><button data-dismiss="modal" class="btn btn-success">Join</button></span>
+            <span class="input-group-btn"><button id="join-btn" data-dismiss="modal" class="btn btn-success">Join</button></span>
         </div>
       </div>
     </div><!-- /.modal-content -->
@@ -67,7 +68,7 @@
         <div class="row fixed">
             <div class="col-md-12">
                 <div id="url_post" class="form-group input-group">
-                  <input id="content" type="text" class="form-control" placeholder="This is fine.">
+                  <input id="content" type="text" class="form-control" placeholder="This is fine." autocomplete="off" />
                   <span class="input-group-btn"><button type="submit" class="btn btn-success">Submit</button></span>
                 </div>
             </div>
